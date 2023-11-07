@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:grandatma_mobile/domain/entities/transaction/transaction_can_cancel.dart';
 
 class TransactionCanCancelResponseModel extends Equatable {
   TransactionCanCancelResponseModel({
@@ -60,8 +61,8 @@ class TransactionCanCancelModel extends Equatable {
     "total_pembayaran": totalPembayaran,
   };
 
-  TransactionCanCancelModel toEntity(){
-    return TransactionCanCancelModel(
+  TransactionCanCancel toEntity(){
+    return TransactionCanCancel(
       nama: nama,
       idReservasi: idReservasi,
       tanggalTransaksi: tanggalTransaksi,

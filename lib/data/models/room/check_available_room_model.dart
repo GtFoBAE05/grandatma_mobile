@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:grandatma_mobile/domain/entities/reservation/check_available_room.dart';
 
 class AvailRoomResponseModel extends Equatable {
   AvailRoomResponseModel({
@@ -68,8 +69,8 @@ class RoomModel extends Equatable {
     "Tarif": tarif,
   };
 
-  RoomModel toEntity(){
-    return RoomModel(
+  Room toEntity(){
+    return Room(
       id: id,
       nomorKamar: nomorKamar,
       idTipeKamar: idTipeKamar,

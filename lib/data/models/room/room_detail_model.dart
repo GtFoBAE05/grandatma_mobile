@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:grandatma_mobile/domain/entities/room/room_detail.dart';
 
 class RoomDetailResponseModel extends Equatable {
   RoomDetailResponseModel({
@@ -6,12 +7,12 @@ class RoomDetailResponseModel extends Equatable {
     required this.error,
   });
 
-  final RoomDetailModel? data;
+  final RoomDetailModel data;
   final bool? error;
 
   factory RoomDetailResponseModel.fromJson(Map<String, dynamic> json){
     return RoomDetailResponseModel(
-      data: json["data"] == null ? null : RoomDetailModel.fromJson(json["data"]),
+      data: RoomDetailModel.fromJson(json["data"]),
       error: json["error"],
     );
   }
@@ -76,8 +77,8 @@ class RoomDetailModel extends Equatable {
     "updated_at": updatedAt?.toIso8601String(),
   };
 
-  RoomDetailModel toEntity(){
-    return RoomDetailModel(
+  RoomDetail toEntity(){
+    return RoomDetail(
       id: id,
       namaTipe: namaTipe,
       pilihanTempatTidur: pilihanTempatTidur,

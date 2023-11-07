@@ -13,25 +13,31 @@ class TransactionDetailModel extends Equatable {
   final bool? error;
   final List<FasilitasModel> fasilitas;
 
-  factory TransactionDetailModel.fromJson(Map<String, dynamic> json){
+  factory TransactionDetailModel.fromJson(Map<String, dynamic> json) {
     return TransactionDetailModel(
-      data: json["data"] == null ? null : TransactionDetailDataModel.fromJson(json["data"]),
+      data: json["data"] == null
+          ? null
+          : TransactionDetailDataModel.fromJson(json["data"]),
       error: json["error"],
-      fasilitas: json["fasilitas"] == null ? [] : List<FasilitasModel>.from(json["fasilitas"]!.map((x) => FasilitasModel.fromJson(x))),
+      fasilitas: json["fasilitas"] == null
+          ? []
+          : List<FasilitasModel>.from(
+              json["fasilitas"]!.map((x) => FasilitasModel.fromJson(x))),
     );
   }
 
   Map<String, dynamic> toJson() => {
-    "data": data?.toJson(),
-    "error": error,
-    "fasilitas": fasilitas.map((x) => x?.toJson()).toList(),
-  };
-
+        "data": data?.toJson(),
+        "error": error,
+        "fasilitas": fasilitas.map((x) => x?.toJson()).toList(),
+      };
 
   @override
   List<Object?> get props => [
-    data, error, fasilitas, ];
-
+        data,
+        error,
+        fasilitas,
+      ];
 }
 
 class TransactionDetailDataModel extends Equatable {
@@ -61,7 +67,7 @@ class TransactionDetailDataModel extends Equatable {
   final String pilihanKasur;
   final bool statusBatal;
 
-  factory TransactionDetailDataModel.fromJson(Map<String, dynamic> json){
+  factory TransactionDetailDataModel.fromJson(Map<String, dynamic> json) {
     return TransactionDetailDataModel(
       idReservasi: json["IdReservasi"],
       tanggalTransaksi: DateTime.tryParse(json["TanggalTransaksi"] ?? ""),
@@ -78,27 +84,48 @@ class TransactionDetailDataModel extends Equatable {
   }
 
   Map<String, dynamic> toJson() => {
-    "IdReservasi": idReservasi,
-    "TanggalTransaksi": tanggalTransaksi?.toIso8601String(),
-    "TotalPembayaran": totalPembayaran,
-    "NomorKamar": nomorKamar,
-    "TanggalCheckin": tanggalCheckin?.toIso8601String(),
-    "TanggalCheckout": tanggalCheckout?.toIso8601String(),
-    "JumlahDewasa": jumlahDewasa,
-    "JumlahAnak": jumlahAnak,
-    "NomorRekening": nomorRekening,
-    "PilihanKasur": pilihanKasur,
-    "StatusBatal": statusBatal,
-  };
+        "IdReservasi": idReservasi,
+        "TanggalTransaksi": tanggalTransaksi?.toIso8601String(),
+        "TotalPembayaran": totalPembayaran,
+        "NomorKamar": nomorKamar,
+        "TanggalCheckin": tanggalCheckin?.toIso8601String(),
+        "TanggalCheckout": tanggalCheckout?.toIso8601String(),
+        "JumlahDewasa": jumlahDewasa,
+        "JumlahAnak": jumlahAnak,
+        "NomorRekening": nomorRekening,
+        "PilihanKasur": pilihanKasur,
+        "StatusBatal": statusBatal,
+      };
 
-  TransactionDetailData toEntity(){
-    return TransactionDetailData(idReservasi: idReservasi, tanggalTransaksi: tanggalTransaksi, totalPembayaran: totalPembayaran, nomorKamar: nomorKamar, tanggalCheckin: tanggalCheckin, tanggalCheckout: tanggalCheckout, jumlahDewasa: jumlahDewasa, jumlahAnak: jumlahAnak, nomorRekening: nomorRekening, pilihanKasur: pilihanKasur, statusBatal: statusBatal);
+  TransactionDetailData toEntity() {
+    return TransactionDetailData(
+        idReservasi: idReservasi,
+        tanggalTransaksi: tanggalTransaksi,
+        totalPembayaran: totalPembayaran,
+        nomorKamar: nomorKamar,
+        tanggalCheckin: tanggalCheckin,
+        tanggalCheckout: tanggalCheckout,
+        jumlahDewasa: jumlahDewasa,
+        jumlahAnak: jumlahAnak,
+        nomorRekening: nomorRekening,
+        pilihanKasur: pilihanKasur,
+        statusBatal: statusBatal);
   }
 
   @override
   List<Object?> get props => [
-    idReservasi, tanggalTransaksi, totalPembayaran, nomorKamar, tanggalCheckin, tanggalCheckout, jumlahDewasa, jumlahAnak, nomorRekening, pilihanKasur, statusBatal, ];
-
+        idReservasi,
+        tanggalTransaksi,
+        totalPembayaran,
+        nomorKamar,
+        tanggalCheckin,
+        tanggalCheckout,
+        jumlahDewasa,
+        jumlahAnak,
+        nomorRekening,
+        pilihanKasur,
+        statusBatal,
+      ];
 }
 
 class FasilitasModel extends Equatable {
@@ -118,7 +145,7 @@ class FasilitasModel extends Equatable {
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
-  factory FasilitasModel.fromJson(Map<String, dynamic> json){
+  factory FasilitasModel.fromJson(Map<String, dynamic> json) {
     return FasilitasModel(
       id: json["Id"],
       idReservasi: json["IdReservasi"],
@@ -130,22 +157,33 @@ class FasilitasModel extends Equatable {
   }
 
   Map<String, dynamic> toJson() => {
-    "Id": id,
-    "IdReservasi": idReservasi,
-    "NamaFasilitas": namaFasilitas,
-    "JumlahUnit": jumlahUnit,
-    "CreatedAt": createdAt?.toIso8601String(),
-    "UpdatedAt": updatedAt?.toIso8601String(),
-  };
+        "Id": id,
+        "IdReservasi": idReservasi,
+        "NamaFasilitas": namaFasilitas,
+        "JumlahUnit": jumlahUnit,
+        "CreatedAt": createdAt?.toIso8601String(),
+        "UpdatedAt": updatedAt?.toIso8601String(),
+      };
 
-  Fasilitas toEntity(){
-    return Fasilitas(id: id, idReservasi: idReservasi, namaFasilitas: namaFasilitas, jumlahUnit: jumlahUnit, createdAt: createdAt, updatedAt: updatedAt);
+  Fasilitas toEntity() {
+    return Fasilitas(
+        id: id,
+        idReservasi: idReservasi,
+        namaFasilitas: namaFasilitas,
+        jumlahUnit: jumlahUnit,
+        createdAt: createdAt,
+        updatedAt: updatedAt);
   }
 
   @override
   List<Object?> get props => [
-    id, idReservasi, namaFasilitas, jumlahUnit, createdAt, updatedAt, ];
-
+        id,
+        idReservasi,
+        namaFasilitas,
+        jumlahUnit,
+        createdAt,
+        updatedAt,
+      ];
 }
 
 /*

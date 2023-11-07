@@ -1,8 +1,9 @@
 import 'package:equatable/equatable.dart';
-import 'package:grandatma_mobile/domain/entities/transaction/cancel_transaction.dart';
 
-class CancelTransactionResponseModel extends Equatable {
-  CancelTransactionResponseModel({
+import '../../../domain/entities/jaminan/pay_jaminan.dart';
+
+class PayJaminanResponseModel extends Equatable {
+  PayJaminanResponseModel({
     required this.message,
     required this.error,
   });
@@ -10,8 +11,8 @@ class CancelTransactionResponseModel extends Equatable {
   final String? message;
   final bool? error;
 
-  factory CancelTransactionResponseModel.fromJson(Map<String, dynamic> json){
-    return CancelTransactionResponseModel(
+  factory PayJaminanResponseModel.fromJson(Map<String, dynamic> json){
+    return PayJaminanResponseModel(
       message: json["message"],
       error: json["error"],
     );
@@ -22,8 +23,8 @@ class CancelTransactionResponseModel extends Equatable {
     "error": error,
   };
 
-  CancelTransaction toEntity(){
-    return CancelTransaction(
+  PayJaminan toEntity(){
+    return PayJaminan(
       message: message,
       error: error,
     );

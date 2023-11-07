@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:grandatma_mobile/domain/entities/reservation/add_reservation.dart';
 
 class AddReservationResponseModel extends Equatable {
   AddReservationResponseModel({
@@ -48,8 +49,8 @@ class AddReservationModel extends Equatable {
     "id_reservasi": idReservasi,
   };
 
-  AddReservationModel toEntity(){
-    return AddReservationModel(
+  AddReservation toEntity(){
+    return AddReservation(
       idReservasi: idReservasi,
     );
   }

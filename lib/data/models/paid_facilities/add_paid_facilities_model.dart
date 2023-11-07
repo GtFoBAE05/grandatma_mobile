@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:grandatma_mobile/domain/entities/paid_facilities/add_paid_facilities.dart';
 
 class AddPaidFacilitiesResponseModel extends Equatable {
   AddPaidFacilitiesResponseModel({
@@ -21,8 +22,8 @@ class AddPaidFacilitiesResponseModel extends Equatable {
     "message": message,
   };
 
-  AddPaidFacilitiesResponseModel toEntity(){
-    return AddPaidFacilitiesResponseModel(
+  AddPaidFacilities toEntity(){
+    return AddPaidFacilities(
       error: error,
       message: message,
     );

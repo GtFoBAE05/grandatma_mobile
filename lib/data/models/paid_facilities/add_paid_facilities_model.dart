@@ -7,8 +7,8 @@ class AddPaidFacilitiesResponseModel extends Equatable {
     required this.message,
   });
 
-  final bool? error;
-  final String? message;
+  final bool error;
+  final String message;
 
   factory AddPaidFacilitiesResponseModel.fromJson(Map<String, dynamic> json){
     return AddPaidFacilitiesResponseModel(

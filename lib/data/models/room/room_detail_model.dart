@@ -8,7 +8,7 @@ class RoomDetailResponseModel extends Equatable {
   });
 
   final RoomDetailModel data;
-  final bool? error;
+  final bool error;
 
   factory RoomDetailResponseModel.fromJson(Map<String, dynamic> json){
     return RoomDetailResponseModel(
@@ -41,13 +41,13 @@ class RoomDetailModel extends Equatable {
     required this.updatedAt,
   });
 
-  final int? id;
-  final String? namaTipe;
-  final String? pilihanTempatTidur;
-  final String? fasilitas;
-  final String? deskripsi;
-  final String? rincianKamar;
-  final int? tarif;
+  final int id;
+  final String namaTipe;
+  final String pilihanTempatTidur;
+  final String fasilitas;
+  final String deskripsi;
+  final String rincianKamar;
+  final int tarif;
   final DateTime? createdAt;
   final DateTime? updatedAt;
 

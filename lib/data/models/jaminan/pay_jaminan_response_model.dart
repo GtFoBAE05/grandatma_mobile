@@ -8,8 +8,8 @@ class PayJaminanResponseModel extends Equatable {
     required this.error,
   });
 
-  final String? message;
-  final bool? error;
+  final String message;
+  final bool error;
 
   factory PayJaminanResponseModel.fromJson(Map<String, dynamic> json){
     return PayJaminanResponseModel(

@@ -8,7 +8,7 @@ class TransactionCanCancelResponseModel extends Equatable {
   });
 
   final List<TransactionCanCancelModel> data;
-  final bool? error;
+  final bool error;
 
   factory TransactionCanCancelResponseModel.fromJson(Map<String, dynamic> json){
     return TransactionCanCancelResponseModel(
@@ -37,11 +37,11 @@ class TransactionCanCancelModel extends Equatable {
     required this.totalPembayaran,
   });
 
-  final String? nama;
-  final String? idReservasi;
+  final String nama;
+  final String idReservasi;
   final DateTime? tanggalTransaksi;
   final DateTime? tanggalCheckin;
-  final int? totalPembayaran;
+  final int totalPembayaran;
 
   factory TransactionCanCancelModel.fromJson(Map<String, dynamic> json){
     return TransactionCanCancelModel(

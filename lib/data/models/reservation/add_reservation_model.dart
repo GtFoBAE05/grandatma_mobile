@@ -8,13 +8,13 @@ class AddReservationResponseModel extends Equatable {
     required this.message,
   });
 
-  final AddReservationModel? data;
-  final bool? error;
-  final String? message;
+  final AddReservationModel data;
+  final bool error;
+  final String message;
 
   factory AddReservationResponseModel.fromJson(Map<String, dynamic> json){
     return AddReservationResponseModel(
-      data: json["data"] == null ? null : AddReservationModel.fromJson(json["data"]),
+      data: AddReservationModel.fromJson(json["data"]),
       error: json["error"],
       message: json["message"],
     );

@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:grandatma_mobile/domain/entities/paid_facilities/get%20_paid_facilities.dart';
+
+import '../../../domain/entities/paid_facilities/get_paid_facilities.dart';
 
 class PaidFacilitiesResponseModel extends Equatable {
   PaidFacilitiesResponseModel({
@@ -8,7 +9,7 @@ class PaidFacilitiesResponseModel extends Equatable {
   });
 
   final List<PaidFacilitiesModel> data;
-  final bool? error;
+  final bool error;
 
   factory PaidFacilitiesResponseModel.fromJson(Map<String, dynamic> json){
     return PaidFacilitiesResponseModel(
@@ -37,9 +38,9 @@ class PaidFacilitiesModel extends Equatable {
     required this.updatedAt,
   });
 
-  final int? id;
-  final String? namaFasilitas;
-  final int? harga;
+  final int id;
+  final String namaFasilitas;
+  final int harga;
   final DateTime? createdAt;
   final DateTime? updatedAt;
 

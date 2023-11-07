@@ -6,5 +6,5 @@ import '../entities/reservation/check_available_room.dart';
 
 abstract class RoomRepository{
   Future<Either<Failure,RoomDetail>> getRoomDetail(int id);
-  Future<Either<Failure,Room>> getAvailableRoom(String startDate, String endDate);
+  Future<Either<Failure,List<Room>>> getAvailableRoom(String startDate, String endDate);
 }

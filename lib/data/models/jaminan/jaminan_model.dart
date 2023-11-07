@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:grandatma_mobile/domain/entities/jaminan/Jaminan.dart';
 
 class JaminanResponseModel extends Equatable {
   JaminanResponseModel({
@@ -7,7 +8,7 @@ class JaminanResponseModel extends Equatable {
   });
 
   final List<JaminanModel> data;
-  final bool? error;
+  final bool error;
 
   factory JaminanResponseModel.fromJson(Map<String, dynamic> json){
     return JaminanResponseModel(
@@ -36,11 +37,11 @@ class JaminanModel extends Equatable {
     required this.statusLunas,
   });
 
-  final int? id;
-  final String? idReservasi;
-  final int? nominal;
-  final int? totalPembayaran;
-  final bool? statusLunas;
+  final int id;
+  final String idReservasi;
+  final int nominal;
+  final int totalPembayaran;
+  final bool statusLunas;
 
   factory JaminanModel.fromJson(Map<String, dynamic> json){
     return JaminanModel(
@@ -60,8 +61,8 @@ class JaminanModel extends Equatable {
     "status_lunas": statusLunas,
   };
 
-  JaminanModel toEntity(){
-    return JaminanModel(
+  Jaminan toEntity(){
+    return Jaminan(
       id: id,
       idReservasi: idReservasi,
       nominal: nominal,

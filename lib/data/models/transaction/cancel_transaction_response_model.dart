@@ -7,8 +7,8 @@ class CancelTransactionResponseModel extends Equatable {
     required this.error,
   });
 
-  final String? message;
-  final bool? error;
+  final String message;
+  final bool error;
 
   factory CancelTransactionResponseModel.fromJson(Map<String, dynamic> json){
     return CancelTransactionResponseModel(

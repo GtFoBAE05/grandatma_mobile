@@ -37,7 +37,6 @@ void main() async {
   di.initializeDependencies();
   runApp(MyApp());
 
-  //tambahkan harga default kamar, toast ketika season kurang dari 2 bulan
 }
 
 class MyApp extends StatelessWidget {

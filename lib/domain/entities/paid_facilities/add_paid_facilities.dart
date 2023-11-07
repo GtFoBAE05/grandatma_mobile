@@ -6,8 +6,8 @@ class AddPaidFacilities extends Equatable {
     required this.message,
   });
 
-  final bool? error;
-  final String? message;
+  final bool error;
+  final String message;
 
   @override
   List<Object?> get props => [

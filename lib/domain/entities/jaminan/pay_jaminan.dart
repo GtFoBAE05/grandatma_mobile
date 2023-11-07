@@ -6,8 +6,8 @@ class PayJaminan extends Equatable {
     required this.error,
   });
 
-  final String? message;
-  final bool? error;
+  final String message;
+  final bool error;
 
 
 

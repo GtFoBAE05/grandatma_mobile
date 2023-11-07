@@ -37,7 +37,7 @@ class AddReservationModel extends Equatable {
     required this.idReservasi,
   });
 
-  final String? idReservasi;
+  final String idReservasi;
 
   factory AddReservationModel.fromJson(Map<String, dynamic> json){
     return AddReservationModel(

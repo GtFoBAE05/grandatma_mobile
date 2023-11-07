@@ -13,13 +13,13 @@ class RoomDetail extends Equatable {
     required this.updatedAt,
   });
 
-  final int? id;
-  final String? namaTipe;
-  final String? pilihanTempatTidur;
-  final String? fasilitas;
-  final String? deskripsi;
-  final String? rincianKamar;
-  final int? tarif;
+  final int id;
+  final String namaTipe;
+  final String pilihanTempatTidur;
+  final String fasilitas;
+  final String deskripsi;
+  final String rincianKamar;
+  final int tarif;
   final DateTime? createdAt;
   final DateTime? updatedAt;
 

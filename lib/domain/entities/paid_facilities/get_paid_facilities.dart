@@ -9,9 +9,9 @@ class PaidFacilities extends Equatable {
     required this.updatedAt,
   });
 
-  final int? id;
-  final String? namaFasilitas;
-  final int? harga;
+  final int id;
+  final String namaFasilitas;
+  final int harga;
   final DateTime? createdAt;
   final DateTime? updatedAt;
 

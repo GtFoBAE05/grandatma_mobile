@@ -5,7 +5,7 @@ class AddReservation extends Equatable {
     required this.idReservasi,
   });
 
-  final String? idReservasi;
+  final String idReservasi;
 
 
   @override

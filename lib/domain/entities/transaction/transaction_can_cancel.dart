@@ -9,11 +9,11 @@ class TransactionCanCancel extends Equatable {
     required this.totalPembayaran,
   });
 
-  final String? nama;
-  final String? idReservasi;
+  final String nama;
+  final String idReservasi;
   final DateTime? tanggalTransaksi;
   final DateTime? tanggalCheckin;
-  final int? totalPembayaran;
+  final int totalPembayaran;
 
 
   @override

@@ -11,13 +11,13 @@ class Room extends Equatable {
     required this.tarif,
   });
 
-  final int? id;
-  final String? nomorKamar;
-  final int? idTipeKamar;
-  final String? namaTipe;
-  final String? statusKamar;
-  final int? idSeason;
-  final int? tarif;
+  final int id;
+  final String nomorKamar;
+  final int idTipeKamar;
+  final String namaTipe;
+  final String statusKamar;
+  final int idSeason;
+  final int tarif;
 
   @override
   List<Object?> get props => [

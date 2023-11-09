@@ -19,8 +19,8 @@ class GetRoomDetailBloc extends Bloc<GetRoomDetailEvent, GetRoomDetailState> {
 
       final result = await _roomRepository.getRoomDetail(event.id);
 
-      result.fold((l) => GetRoomDetailError(message: l.message),
-          (r) => GetRoomDetailSuccess(roomDetail: r));
+      result.fold((l) => emit(GetRoomDetailError(message: l.message)),
+          (r) => emit(GetRoomDetailSuccess(roomDetail: r)));
     });
   }
 }

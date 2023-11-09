@@ -14,3 +14,13 @@ class DoReservePaidFacilities extends ReservePaidFacilitiesEvent {
   @override
   List<Object> get props => [];
 }
+
+class DoMultipleReservePaidFacilities extends ReservePaidFacilitiesEvent {
+  final List<ArgumentPaidFacilities> paidFacilities;
+  final String idReservasi;
+
+  DoMultipleReservePaidFacilities({required this.paidFacilities, required this.idReservasi});
+
+  @override
+  List<Object> get props => [];
+}

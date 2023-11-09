@@ -39,7 +39,12 @@ class TransactionRepositoryImpl implements TransactionRepository {
       final result = await transactionRemoteDataSource.getTransactionDetail(id);
       final mappedResult = TransactionDetail(
           data: result.data?.toEntity(),
-          fasilitas: result.fasilitas.map((e) => e.toEntity()).toList());
+          fasilitas: result.fasilitas.map((e) => e.toEntity()).toList(),
+        user: result.user!.toEntity(),
+        days: result.days ?? 0,
+        tarif: result.tarif ?? 0
+
+      );
       return Right(mappedResult);
     } on ServerException {
       return Left(ServerFailure(''));

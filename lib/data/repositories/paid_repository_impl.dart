@@ -22,6 +22,7 @@ class PaidFacilitiesRepositoryImpl implements PaidFacilitiesRepository {
       final result = await paidFacilitiesRemoteDataSource.addPaidFacilities(
           id, idFasilitas, jumlahUnit);
 
+      print(result);
       if (result.error) {
         print(result);
         throw ServerException(result.message);

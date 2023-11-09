@@ -30,7 +30,7 @@ class _SigninPageState extends State<SigninPage> {
     emailController.addListener(validateButton);
     passwordController.addListener(validateButton);
     emailController.text = "andi@gmail.com";
-    passwordController.text = "andiii";
+    passwordController.text = "andi";
   }
 
   void validateButton() {

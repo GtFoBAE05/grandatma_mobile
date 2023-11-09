@@ -19,7 +19,7 @@ class PaidFacilitiesRemoteDataSourceImpl
 
   @override
   Future<AddPaidFacilitiesResponseModel> addPaidFacilities(String id, int idFasilitas, int jumlahUnit) async {
-    final response = await dio.post("fasilitasreservasi", queryParameters: {
+    final response = await dio.post("fasilitasreservasi", data: {
       "id_reservasi": id,
       "id_fasilitas_berbayar" : idFasilitas,
       "jumlah_unit" : jumlahUnit
@@ -28,13 +28,14 @@ class PaidFacilitiesRemoteDataSourceImpl
     if (response.statusCode == 200) {
       return AddPaidFacilitiesResponseModel.fromJson(response.data);
     } else {
+      print(response);
       throw ServerException(response.data['message']);
     }
   }
 
   @override
   Future<List<PaidFacilitiesModel>> getPaidFacilities() async {
-    final response = await dio.post("fasilitasberbayar");
+    final response = await dio.get("fasilitasberbayar");
 
     if (response.statusCode == 200) {
       return PaidFacilitiesResponseModel.fromJson(response.data).data;

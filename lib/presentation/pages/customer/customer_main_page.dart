@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:grandatma_mobile/presentation/pages/auth/signin_page.dart';
 import 'package:grandatma_mobile/presentation/pages/customer/profile/customer_profile_page.dart';
+import 'package:grandatma_mobile/presentation/pages/customer/room/check_avail_room_page.dart';
 import 'package:grandatma_mobile/presentation/pages/customer/transaction/transaction_history_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -34,8 +35,10 @@ class _CustomerHomePageState extends State<CustomerMainPage> {
       case 0:
         return CustomerHomePage();
       case 1:
-        return CustomerTransactionHistoryPage();
+        return CheckAvailRoomPage();
       case 2:
+        return CustomerTransactionHistoryPage();
+      case 3:
         return CustomerProfilePage();
       default:
         return SigninPage();
@@ -44,6 +47,7 @@ class _CustomerHomePageState extends State<CustomerMainPage> {
 
   Widget bottomNavigationBar() {
     return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
       currentIndex: _selectedIndex,
       onTap: (index) {
         setState(() {
@@ -54,6 +58,10 @@ class _CustomerHomePageState extends State<CustomerMainPage> {
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
           label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.add),
+          label: 'Reservation',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.history),

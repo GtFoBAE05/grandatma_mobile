@@ -12,15 +12,12 @@ part 'transaction_history_state.dart';
 class TransactionHistoryBloc extends Bloc<TransactionHistoryEvent, TransactionHistoryState> {
 
   final TransactionRepository _transactionRepositoryImpl;
-  var transactionHistory = <TransactionHistory>[];
 
 
   TransactionHistoryBloc(this._transactionRepositoryImpl) : super(TransactionHistoryInitial()) {
 
     on<GetTransactionHistory>((event, emit)async {
       final result = await _transactionRepositoryImpl.getTransactionHistory();
-
-      transactionHistory = result.getOrElse(() => <TransactionHistory>[]);
 
       result.fold(
         (l) => emit(TransactionHistoryError(message: l.message)),

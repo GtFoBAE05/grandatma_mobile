@@ -46,14 +46,15 @@ class LoggingInterceptor extends Interceptor{
   void onError(DioError err, ErrorInterceptorHandler handler) async{
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    if(err.response?.statusCode == 403){
+    if(err.response?.statusCode == 400 || err.response?.statusCode == 403){
       prefs.clear();
-
-      navigatorKey.currentState?.pushReplacementNamed("/");
+      navigatorKey.currentState?.pushReplacement(MaterialPageRoute(builder: (context) => SigninPage()));
     }
+
 
     print(
         "<-- ${err.message} ${(err.requestOptions != null ? (err.requestOptions.baseUrl + err.requestOptions.path) : 'URL')}");
+    print(err);
     print(
         "${err.response != null ? err.response?.data : 'Unknown Error'}");
     print("<-- End error");

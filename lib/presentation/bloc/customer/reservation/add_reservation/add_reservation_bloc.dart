@@ -28,7 +28,7 @@ class AddReservationBloc
           event.pilihanKasur);
 
       result.fold((l) => emit(AddReservationError(message: l.message)),
-          (r) => AddReservationSuccess(idReservasi: r.idReservasi));
+          (r) => emit(AddReservationSuccess(idReservasi: r.idReservasi)));
     });
   }
 }

@@ -6,11 +6,16 @@ class TransactionDetail extends Equatable {
   TransactionDetail({
     required this.data,
     required this.fasilitas,
+    required this.user,
+    required this.tarif,
+    required this.days
   });
 
   final TransactionDetailData? data;
   final List<Fasilitas> fasilitas;
-
+  final TransactionUser user;
+  final int days;
+  final int tarif;
 
 
   @override
@@ -31,6 +36,7 @@ class TransactionDetailData extends Equatable {
     required this.jumlahAnak,
     required this.nomorRekening,
     required this.pilihanKasur,
+    required this.tipeKamar,
     required this.statusBatal,
   });
 
@@ -44,6 +50,7 @@ class TransactionDetailData extends Equatable {
   final int jumlahAnak;
   final String nomorRekening;
   final String pilihanKasur;
+  final String tipeKamar;
   final bool statusBatal;
 
 
@@ -76,5 +83,36 @@ class Fasilitas extends Equatable {
   @override
   List<Object?> get props => [
     id, idReservasi, namaFasilitas, jumlahUnit, createdAt, updatedAt, ];
+
+}
+
+class TransactionUser extends Equatable {
+  TransactionUser({
+    required this.id,
+    required this.nama,
+    required this.email,
+    required this.username,
+    required this.notelp,
+    required this.password,
+    required this.alamat,
+    required this.role,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  final int id;
+  final String nama;
+  final String email;
+  final String username;
+  final String notelp;
+  final String password;
+  final String alamat;
+  final String role;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
+
+  @override
+  List<Object?> get props => [
+    id, nama, email, username, notelp, password, alamat, role, createdAt, updatedAt, ];
 
 }

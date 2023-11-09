@@ -5,10 +5,20 @@ import 'package:grandatma_mobile/common/utils.dart';
 import 'package:grandatma_mobile/presentation/bloc/auth/changepass/change_password_bloc.dart';
 import 'package:grandatma_mobile/presentation/bloc/auth/signin/signin_bloc.dart';
 import 'package:grandatma_mobile/presentation/bloc/auth/signup/signup_bloc.dart';
+import 'package:grandatma_mobile/presentation/bloc/customer/jaminan/get_jaminan/get_jaminan_bloc.dart';
+import 'package:grandatma_mobile/presentation/bloc/customer/jaminan/pay_jaminan/pay_jaminan_bloc.dart';
+import 'package:grandatma_mobile/presentation/bloc/customer/paid_facilities/get_paid_facilities/get_paid_facilities_bloc.dart';
+import 'package:grandatma_mobile/presentation/bloc/customer/paid_facilities/reserve_paid_facilities/reserve_paid_facilities_bloc.dart';
 import 'package:grandatma_mobile/presentation/bloc/customer/profile/edit_profile/edit_profile_bloc.dart';
 import 'package:grandatma_mobile/presentation/bloc/customer/profile/profile_bloc.dart';
+import 'package:grandatma_mobile/presentation/bloc/customer/reservation/add_reservation/add_reservation_bloc.dart';
+import 'package:grandatma_mobile/presentation/bloc/customer/room/get_available_room/get_available_room_bloc.dart';
+import 'package:grandatma_mobile/presentation/bloc/customer/room/get_room_detail/get_room_detail_bloc.dart';
 import 'package:grandatma_mobile/presentation/bloc/customer/transaction/detail/transaction_detail_bloc.dart';
+import 'package:grandatma_mobile/presentation/bloc/customer/transaction/do_cancel_transaction/do_cancel_transaction_bloc.dart';
+import 'package:grandatma_mobile/presentation/bloc/customer/transaction/get_transaction_can_cancel/get_transaction_can_cancel_bloc.dart';
 import 'package:grandatma_mobile/presentation/bloc/customer/transaction/history/transaction_history_bloc.dart';
+import 'package:grandatma_mobile/presentation/bloc/customer/transaction/search_transaction_can_cancel/search_transaction_can_cancel_bloc.dart';
 import 'package:grandatma_mobile/presentation/pages/auth/hotel_information_page.dart';
 import 'package:grandatma_mobile/presentation/pages/auth/signin_page.dart';
 import 'package:grandatma_mobile/presentation/pages/auth/signup_page.dart';
@@ -17,8 +27,18 @@ import 'package:grandatma_mobile/presentation/pages/customer/home/customer_home_
 import 'package:grandatma_mobile/presentation/pages/customer/profile/customer_edit_password_page.dart';
 import 'package:grandatma_mobile/presentation/pages/customer/profile/customer_edit_profile_page.dart';
 import 'package:grandatma_mobile/presentation/pages/customer/profile/customer_profile_page.dart';
+import 'package:grandatma_mobile/presentation/pages/customer/reservation/add_paid_facilities_page.dart';
+import 'package:grandatma_mobile/presentation/pages/customer/reservation/add_reservation_page.dart';
+import 'package:grandatma_mobile/presentation/pages/customer/reservation/checkout_confirmation_page.dart';
+import 'package:grandatma_mobile/presentation/pages/customer/reservation/order_receipt_page.dart';
+import 'package:grandatma_mobile/presentation/pages/customer/reservation/paid_facilities_confirmation_page.dart';
+import 'package:grandatma_mobile/presentation/pages/customer/reservation/reservation_confirmation_page.dart';
+import 'package:grandatma_mobile/presentation/pages/customer/room/check_avail_room_page.dart';
+import 'package:grandatma_mobile/presentation/pages/customer/room/room_detail_page.dart';
+import 'package:grandatma_mobile/presentation/pages/customer/room/room_list_page.dart';
 import 'package:grandatma_mobile/presentation/pages/customer/transaction/transaction_detail_page.dart';
 import 'package:grandatma_mobile/presentation/pages/customer/transaction/transaction_history_page.dart';
+import 'package:grandatma_mobile/presentation/pages/customer/transaction/transaction_unpaid_page.dart';
 import 'package:grandatma_mobile/presentation/pages/gm/gm_main_page.dart';
 import 'package:grandatma_mobile/presentation/pages/gm/home/gm_home_page.dart';
 import 'package:grandatma_mobile/presentation/pages/gm/profile/gm_edit_password_page.dart';
@@ -74,6 +94,35 @@ class MyApp extends StatelessWidget {
             create: (context) => di.locator<ChangePasswordBloc>(),
           ),
 
+          //jaminan
+          BlocProvider<GetJaminanBloc>(
+            create: (context) => di.locator<GetJaminanBloc>(),
+          ),
+          BlocProvider<PayJaminanBloc>(
+            create: (context) => di.locator<PayJaminanBloc>(),
+          ),
+
+          //paid facilities
+          BlocProvider<GetPaidFacilitiesBloc>(
+            create: (context) => di.locator<GetPaidFacilitiesBloc>(),
+          ),
+          BlocProvider<ReservePaidFacilitiesBloc>(
+            create: (context) => di.locator<ReservePaidFacilitiesBloc>(),
+          ),
+
+          //reservation
+          BlocProvider<AddReservationBloc>(
+            create: (context) => di.locator<AddReservationBloc>(),
+          ),
+
+          //room
+          BlocProvider<GetAvailableRoomBloc>(
+            create: (context) => di.locator<GetAvailableRoomBloc>(),
+          ),
+          BlocProvider<GetRoomDetailBloc>(
+            create: (context) => di.locator<GetRoomDetailBloc>(),
+          ),
+
           //user
           BlocProvider<EditProfileBloc>(
             create: (context) => di.locator<EditProfileBloc>(),
@@ -83,12 +132,22 @@ class MyApp extends StatelessWidget {
           ),
 
           //transaction
-          BlocProvider<TransactionHistoryBloc>(
-            create: (context) => di.locator<TransactionHistoryBloc>(),
-          ),
           BlocProvider<TransactionDetailBloc>(
             create: (context) => di.locator<TransactionDetailBloc>(),
           ),
+          BlocProvider<DoCancelTransactionBloc>(
+            create: (context) => di.locator<DoCancelTransactionBloc>(),
+          ),
+          BlocProvider<GetTransactionCanCancelBloc>(
+            create: (context) => di.locator<GetTransactionCanCancelBloc>(),
+          ),
+          BlocProvider<TransactionHistoryBloc>(
+            create: (context) => di.locator<TransactionHistoryBloc>(),
+          ),
+          BlocProvider<SearchTransactionCanCancelBloc>(
+            create: (context) => di.locator<SearchTransactionCanCancelBloc>(),
+          ),
+
         ],
         child: FutureBuilder<Widget>(
           future: getInitialPage(),
@@ -135,6 +194,48 @@ class MyApp extends StatelessWidget {
                     case '/customer_home_page':
                       return MaterialPageRoute(
                           builder: (context) => CustomerHomePage());
+
+                      //room
+                    case '/check_avail_room_page':
+                      return MaterialPageRoute(
+                          builder: (context) => CheckAvailRoomPage());
+                    case '/room_list_page':
+                      return MaterialPageRoute(
+                          builder: (context) => RoomListPage(),
+                          settings: settings);
+                    case '/room_detail_page':
+                      return MaterialPageRoute(
+                          builder: (context) => RoomDetailPage(),
+                          settings: settings);
+
+                      //reservation
+                    case '/add_reservation_page':
+                      return MaterialPageRoute(
+                          builder: (context) => AddReservationPage(),
+                          settings: settings);
+                    case '/reservation_confirmation_page':
+                      return MaterialPageRoute(
+                          builder: (context) => ReservationConfirmationPage(),
+                          settings: settings);
+                    case '/add_paid_facilities_page':
+                      return MaterialPageRoute(
+                          builder: (context) => AddPaidFacilitiesPage(),
+                          settings: settings);
+                    case '/paid_facilities_confirmation_page':
+                      return MaterialPageRoute(
+                          builder: (context) => PaidFacilitiesConfirmationPage(),
+                          settings: settings);
+                    case '/checkout_confirmation_page':
+                      return MaterialPageRoute(
+                          builder: (context) => CheckoutConfirmationPage(),
+                          settings: settings);
+
+                    case "/order_receipt_page":
+                      return MaterialPageRoute(
+                          builder: (context) => OrderReceiptPage(),
+                          settings: settings);
+
+                      //profile
                     case '/customer_profile_page':
                       return MaterialPageRoute(
                           builder: (context) => CustomerProfilePage());
@@ -147,6 +248,8 @@ class MyApp extends StatelessWidget {
                             builder: (context) => CustomerEditProfilePage(),
                             settings: settings);
                       }
+
+                      //transaction
                     case '/customer_transaction_history_page':
                       return MaterialPageRoute(
                           builder: (context) =>
@@ -155,6 +258,10 @@ class MyApp extends StatelessWidget {
                       return MaterialPageRoute(
                           builder: (context) =>
                               CustomerTransactionDetailPage(), settings: settings);
+                    case '/customer_transaction_unpaid_page':
+                      return MaterialPageRoute(
+                          builder: (context) =>
+                              TransactionUnpaidPage(), settings: settings);
 
                     //owner
                     case '/owner_main_page':

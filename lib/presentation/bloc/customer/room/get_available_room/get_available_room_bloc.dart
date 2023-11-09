@@ -23,7 +23,7 @@ class GetAvailableRoomBloc
           event.startDate, event.endDate);
 
       result.fold((l) => emit(GetAvailableRoomError(message: l.message)),
-          (r) => GetAvailableRoomSuccess(roomList: r));
+          (r) => emit(GetAvailableRoomSuccess(roomList: r)));
     });
   }
 }

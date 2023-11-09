@@ -4,6 +4,7 @@ import 'package:grandatma_mobile/common/date_converter.dart';
 import 'package:grandatma_mobile/presentation/bloc/customer/profile/profile_bloc.dart';
 import 'package:grandatma_mobile/presentation/pages/auth/signin_page.dart';
 import 'package:grandatma_mobile/presentation/pages/customer/profile/customer_edit_password_page.dart';
+import 'package:grandatma_mobile/presentation/pages/customer/transaction/transaction_unpaid_page.dart';
 import 'package:grandatma_mobile/presentation/widgets/user_profile_card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -81,6 +82,24 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                 },
               ),
               SizedBox(height: 30),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Text(
+                  'Transaction',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+              ),
+              ListTile(
+                title: Text('Unpaid Transaction'),
+                trailing: Icon(
+                  Icons.arrow_forward_ios,
+                  size: 15,
+                ),
+                onTap: () {
+                  Navigator.pushNamed(
+                      context, TransactionUnpaidPage.ROUTE_NAME);
+                },
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Text(

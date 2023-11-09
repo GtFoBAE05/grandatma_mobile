@@ -39,7 +39,7 @@ class ReservationRemoteDataSourceImpl implements ReservationRemoteDataSource {
     });
 
     if (response.statusCode == 200) {
-      return AddReservationModel.fromJson(response.data);
+      return AddReservationResponseModel.fromJson(response.data).data;
     } else {
       throw ServerException(response.data['message']);
     }

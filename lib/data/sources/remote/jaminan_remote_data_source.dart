@@ -31,7 +31,7 @@ class JaminanRemoteDataSourceImpl implements JaminanRemoteDataSource {
 
   @override
   Future<PayJaminanResponseModel> payJaminan(String id, int nominal) async {
-    final response = await dio.put("jaminan/$id", queryParameters: {
+    final response = await dio.put("jaminan/$id", data: {
       "nominal": nominal
     });
 

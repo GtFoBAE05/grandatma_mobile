@@ -52,159 +52,154 @@ class _AddReservationPageState extends State<AddReservationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
           ),
-          title: Text(
-            'Add Reservation',
-            style: TextStyle(color: Colors.black),
-          ),
-          centerTitle: true,
-          backgroundColor: Colors.white,
-          elevation: 0,
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
-        body: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: FormBuilder(
-                key: _formKey,
-                child: ListView(children: [
-                  ListTile(
-                      title: Text("Room Type"),
-                      subtitle: Text(
-                        "$roomType",
-                      ),
-                      trailing: Icon(Icons.calendar_today)),
-                  ListTile(
-                    title: Text("Start Date"),
-                    subtitle: Text(
-                      "$startDate",
-                    ),
-                    trailing: Icon(Icons.calendar_today),
+        title: Text(
+          'Add Reservation',
+          style: TextStyle(color: Colors.black),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        elevation: 0,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: FormBuilder(
+          key: _formKey,
+          child: ListView(
+            children: [
+              ListTile(
+                title: Text("Room Type"),
+                subtitle: Text("$roomType"),
+                trailing: Icon(Icons.calendar_today),
+              ),
+              ListTile(
+                title: Text("Start Date"),
+                subtitle: Text("$startDate"),
+                trailing: Icon(Icons.calendar_today),
+              ),
+              ListTile(
+                title: Text("End Date"),
+                subtitle: Text("$endDate"),
+                trailing: Icon(Icons.calendar_today),
+              ),
+              FormBuilderTextField(
+                name: "jumlah_dewasa",
+                controller: jumlahDewasa,
+                decoration: InputDecoration(
+                  hintText: 'Jumlah Dewasa',
+                  label: Text('Jumlah Dewasa'),
+                  border: OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blue, width: 2.0),
                   ),
-                  ListTile(
-                    title: Text("End Date"),
-                    subtitle: Text(
-                      "$endDate",
-                    ),
-                    trailing: Icon(Icons.calendar_today),
+                ),
+                validator: FormBuilderValidators.compose(
+                  [
+                    FormBuilderValidators.required(),
+                    FormBuilderValidators.numeric(),
+                  ],
+                ),
+              ),
+              SizedBox(height: 20),
+              FormBuilderTextField(
+                name: "jumlah_anak",
+                controller: jumlahAnak,
+                decoration: InputDecoration(
+                  hintText: 'Jumlah Anak',
+                  label: Text('Jumlah Anak'),
+                  border: OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blue, width: 2.0),
                   ),
-                  FormBuilderTextField(
-                    name: "jumlah_dewasa",
-                    controller: jumlahDewasa,
-                    decoration: InputDecoration(
-                      hintText: 'Jumlah Dewasa',
-                      label: Text('Jumlah Dewasa'),
-                      border: OutlineInputBorder(),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue, width: 2.0),
-                      ),
-                    ),
-                    validator: FormBuilderValidators.compose(
-                      [
-                        FormBuilderValidators.required(),
-                        FormBuilderValidators.numeric(),
-                      ],
-                    ),
+                ),
+                validator: FormBuilderValidators.compose(
+                  [
+                    FormBuilderValidators.required(),
+                    FormBuilderValidators.numeric(),
+                  ],
+                ),
+              ),
+              SizedBox(height: 20),
+              FormBuilderTextField(
+                name: "nomor_rekening",
+                controller: nomorRekeningController,
+                decoration: InputDecoration(
+                  hintText: 'Nomor Rekening',
+                  label: Text('Nomor Rekening'),
+                  border: OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blue, width: 2.0),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  FormBuilderTextField(
-                    name: "jumlah_anak",
-                    controller: jumlahAnak,
-                    decoration: InputDecoration(
-                      hintText: 'Jumlah Anak',
-                      label: Text('Jumlah Anak'),
-                      border: OutlineInputBorder(),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue, width: 2.0),
-                      ),
-                    ),
-                    validator: FormBuilderValidators.compose(
-                      [
-                        FormBuilderValidators.required(),
-                        FormBuilderValidators.numeric(),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  FormBuilderTextField(
-                    name: "nomor_rekening",
-                    controller: nomorRekeningController,
-                    decoration: InputDecoration(
-                      hintText: 'Nomor Rekening',
-                      label: Text('Nomor Rekening'),
-                      border: OutlineInputBorder(),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue, width: 2.0),
-                      ),
-                    ),
-                    validator: FormBuilderValidators.compose(
-                      [
-                        FormBuilderValidators.required(),
-                        FormBuilderValidators.numeric(),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  DropdownButtonFormField<String>(
-                    hint: Text("Pilihan Kasur"),
-                    value: pilihanKasur,
-                    items: bedTypeArray.map((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    validator: FormBuilderValidators.compose(
-                      [
-                        FormBuilderValidators.required(),
-                      ],
-                    ),
-                    onChanged: (value) {
-                      setState(() {
-                        pilihanKasur = value;
+                ),
+                validator: FormBuilderValidators.compose(
+                  [
+                    FormBuilderValidators.required(),
+                    FormBuilderValidators.numeric(),
+                  ],
+                ),
+              ),
+              SizedBox(height: 20),
+              DropdownButtonFormField<String>(
+                hint: Text("Pilihan Kasur"),
+                value: pilihanKasur,
+                items: bedTypeArray.map((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+                validator: FormBuilderValidators.compose(
+                  [
+                    FormBuilderValidators.required(),
+                  ],
+                ),
+                onChanged: (value) {
+                  setState(() {
+                    pilihanKasur = value;
+                  });
+                },
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  if (_formKey.currentState?.saveAndValidate() ?? false) {
+                    if (true) {
+                      Navigator.pushNamed(context, ReservationConfirmationPage.ROUTE_NAME, arguments: {
+                        "roomId": roomId,
+                        "roomTypeName": roomType,
+                        "startDate": startDate,
+                        "endDate": endDate,
+                        "jumlahDewasa": int.parse(jumlahDewasa.text),
+                        "jumlahAnak": int.parse(jumlahAnak.text),
+                        "nomorRekening": nomorRekeningController.text,
+                        "pilihanKasur": pilihanKasur,
+                        "price": int.parse(price.toString())
                       });
-                    },
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  ElevatedButton(
-                      onPressed: () {
-                        if (_formKey.currentState?.saveAndValidate() ?? false) {
-                          if (true) {
-                            Navigator.pushNamed(context, ReservationConfirmationPage.ROUTE_NAME, arguments: {
-                              "roomId": roomId,
-                              "roomTypeName" : roomType,
-                              "startDate": startDate,
-                              "endDate": endDate,
-                              "jumlahDewasa": int.parse(jumlahDewasa.text),
-                              "jumlahAnak": int.parse(jumlahAnak.text),
-                              "nomorRekening": nomorRekeningController.text,
-                              "pilihanKasur": pilihanKasur,
-                              "price" : int.parse(price.toString())
-                            });
-                          }
-                        }
-                      },
-                      child: Text("Konfirmasi pesanan")),
-                ]))));
+                    }
+                  }
+                },
+                child: Text("Konfirmasi Pesanan"),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.blue,
+                  textStyle: TextStyle(fontSize: 18),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
+
 }
 
 class ArgumentPaidFacilities {

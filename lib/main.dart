@@ -36,6 +36,7 @@ import 'package:grandatma_mobile/presentation/pages/customer/reservation/reserva
 import 'package:grandatma_mobile/presentation/pages/customer/room/check_avail_room_page.dart';
 import 'package:grandatma_mobile/presentation/pages/customer/room/room_detail_page.dart';
 import 'package:grandatma_mobile/presentation/pages/customer/room/room_list_page.dart';
+import 'package:grandatma_mobile/presentation/pages/customer/transaction/transaction_cancel_page.dart';
 import 'package:grandatma_mobile/presentation/pages/customer/transaction/transaction_detail_page.dart';
 import 'package:grandatma_mobile/presentation/pages/customer/transaction/transaction_history_page.dart';
 import 'package:grandatma_mobile/presentation/pages/customer/transaction/transaction_unpaid_page.dart';
@@ -262,6 +263,10 @@ class MyApp extends StatelessWidget {
                       return MaterialPageRoute(
                           builder: (context) =>
                               TransactionUnpaidPage(), settings: settings);
+                    case '/customer_transaction_cancel_page':
+                      return MaterialPageRoute(
+                          builder: (context) =>
+                              TransactionCancelPage(), settings: settings);
 
                     //owner
                     case '/owner_main_page':

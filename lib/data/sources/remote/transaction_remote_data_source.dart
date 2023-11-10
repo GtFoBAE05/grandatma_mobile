@@ -72,7 +72,7 @@ class TransactionRemoteDataSourceImpl implements TransactionRemoteDataSource{
   @override
   Future<List<TransactionCanCancelModel>> searchTransactionCancel(String id) async {
     final response = await dio.get("transaksi/my/search/batal",queryParameters: {
-      "id_reservasi": id
+      "id": id
     });
 
     if(response.statusCode == 200) {

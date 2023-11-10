@@ -21,7 +21,7 @@ class DoCancelTransactionBloc
       final result = await _transactionRepository.doCancelTransaction(event.id);
 
       result.fold((l) => emit(DoCancelTransactionError(message: l.message)),
-          (r) => DoCancelTransactionSuccess(message: r.message));
+          (r) => emit(DoCancelTransactionSuccess(message: r.message)));
     });
   }
 }

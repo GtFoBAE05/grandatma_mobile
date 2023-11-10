@@ -133,70 +133,82 @@ class _CheckoutConfirmationPageState extends State<CheckoutConfirmationPage> {
           builder: (context, state) {
             return Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Text(
-                  //   'ID Transaksi: $transactionId',
-                  //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                  // ),
-                  // SizedBox(height: 20),
-                  Text(
-                    'Total Pembayaran: Rp${price! * calculateDateDifference(startDate.toString(), endDate.toString()).inDays}',
-                    style: TextStyle(fontSize: 16),
+              child: Center(
+                child: Card(
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
                   ),
-                  SizedBox(height: 20),
-                  Text(
-                    'Jumlah dewasa: $jumlahDewasa',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    'Jumlah anak: $jumlahAnak',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    'Nomor Rekening: $nomorRekening',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    'Kamar yang Dipesan: $roomType',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    'Fasilitas yang Dipesan:',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  SizedBox(height: 10),
-                  if (facilities.isNotEmpty)
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: facilities.map((entry) {
-                        return Text('- ${entry.unitCount}: ${entry.name}',
-                            style: TextStyle(fontSize: 16));
-                      }).toList(),
-                    )
-                  else
-                    Text('Tidak ada fasilitas yang dipesan',
-                        style: TextStyle(fontSize: 16)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        // Text(
+                        //   'ID Transaksi: $transactionId',
+                        //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                        // ),
+                        // SizedBox(height: 20),
+                        Text(
+                          'Total Pembayaran: Rp${price! * calculateDateDifference(startDate.toString(), endDate.toString()).inDays}',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        SizedBox(height: 20),
+                        Text(
+                          'Jumlah dewasa: $jumlahDewasa',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        SizedBox(height: 20),
+                        Text(
+                          'Jumlah anak: $jumlahAnak',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        SizedBox(height: 20),
+                        Text(
+                          'Nomor Rekening: $nomorRekening',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        SizedBox(height: 20),
+                        Text(
+                          'Kamar yang Dipesan: $roomType',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        SizedBox(height: 20),
+                        Text(
+                          'Fasilitas yang Dipesan:',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        SizedBox(height: 10),
+                        if (facilities.isNotEmpty)
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: facilities.map((entry) {
+                              return Text('- ${entry.unitCount}: ${entry.name}',
+                                  style: TextStyle(fontSize: 16));
+                            }).toList(),
+                          )
+                        else
+                          Text('Tidak ada fasilitas yang dipesan',
+                              style: TextStyle(fontSize: 16)),
 
-                  SizedBox(height: 20),
-                  ElevatedButton(
-                      onPressed: () {
-                        context.read<AddReservationBloc>().add(DoAddReservation(
-                            idKamar: int.parse(roomId.toString()),
-                            tanggalCheckin: startDate.toString(),
-                            tanggalCheckout: endDate.toString(),
-                            jumlahDewasa: int.parse(jumlahDewasa.toString()),
-                            jumlahAnak: int.parse(jumlahAnak.toString()),
-                            nomorRekening: nomorRekening.toString(),
-                            pilihanKasur: pilihanKasur.toString()));
-                      },
-                      child: Text('Pesan Sekarang')),
-                ],
+                        SizedBox(height: 20),
+                        ElevatedButton(
+                            onPressed: () {
+                              context.read<AddReservationBloc>().add(DoAddReservation(
+                                  idKamar: int.parse(roomId.toString()),
+                                  tanggalCheckin: startDate.toString(),
+                                  tanggalCheckout: endDate.toString(),
+                                  jumlahDewasa: int.parse(jumlahDewasa.toString()),
+                                  jumlahAnak: int.parse(jumlahAnak.toString()),
+                                  nomorRekening: nomorRekening.toString(),
+                                  pilihanKasur: pilihanKasur.toString()));
+                            },
+                            child: Text('Pesan Sekarang')),
+                      ],
+                    ),
+                  ),
+                ),
               ),
             );
           },

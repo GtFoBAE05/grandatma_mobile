@@ -50,7 +50,7 @@ void initializeDependencies(){
   //dio //singleton
   final dio = Dio(
     BaseOptions(
-      baseUrl: 'http://192.168.18.11:8080/api/',
+      baseUrl: 'http://192.168.18.14:8080/api/',
     ),
   );
 

@@ -43,49 +43,66 @@ class _CheckAvailRoomPageState extends State<CheckAvailRoomPage> {
         backgroundColor: Colors.white,
         elevation: 0,
       ),
-      body: Column(
-         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // Start Date
-          ListTile(
-            title: Text("Start Date"),
-            subtitle: Text(
-              "Start date: ${_selectedDateRange?.start.toString().split(' ')[0]}",
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Image.asset(
+            //   'assets/your_image.png', // Ganti dengan path gambar yang kamu punya
+            //   height: 150,
+            // ),
+            // SizedBox(height: 20),
+            ListTile(
+              title: Text(
+                "Start Date",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              ),
+              subtitle: _selectedDateRange == null
+                  ? Text("Select start date")
+                  : Text(
+                "Start date: ${_selectedDateRange?.start.toString().split(' ')[0]}",
+              ),
+              trailing: Icon(Icons.calendar_today),
+              onTap: _show,
             ),
-            trailing: Icon(Icons.calendar_today),
-            onTap: _show,
-          ),
-          // End Date
-          ListTile(
-            title: Text("End Date"),
-            subtitle: Text(
-              "End date: ${_selectedDateRange?.end.toString().split(' ')[0]}",
+            ListTile(
+              title: Text(
+                "End Date",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              ),
+              subtitle: _selectedDateRange == null
+                  ? Text("Select end date")
+                  : Text(
+                "End date: ${_selectedDateRange?.end.toString().split(' ')[0]}",
+              ),
+              trailing: Icon(Icons.calendar_today),
+              onTap: _show,
             ),
-            trailing: Icon(Icons.calendar_today),
-            onTap: _show,
-          ),
-          // Search Button
-          ElevatedButton(
-            onPressed: () {
-              print("Start date: ${_selectedDateRange?.start.toString().split(' ')[0]}");
-              print("End date: ${_selectedDateRange?.end.toString().split(' ')[0]}");
-              // Navigator.of(context).pushNamed(OrderReceiptPage.ROUTE_NAME, arguments: {
-              //   "idReservation" : "P51123-13",
-              // });
-              Navigator.of(context).pushNamed(
-                "/room_list_page",
-                arguments: {
-                  // "startDate": "2023-11-09",
-                  // "endDate": "2023-11-10",
-                  "startDate": "${_selectedDateRange?.start.toString().split(' ')[0]}",
-                  "endDate": "${_selectedDateRange?.end.toString().split(' ')[0]}",
-                },
-              );
-            },
-            child: Text("Search"),
-          ),
-        ],
+            SizedBox(height: 20),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.orange, // Ganti warna sesuai selera
+              ),
+              onPressed: _selectedDateRange == null
+                  ? null
+                  : () {
+                print("Start date: ${_selectedDateRange?.start.toString().split(' ')[0]}");
+                print("End date: ${_selectedDateRange?.end.toString().split(' ')[0]}");
+                Navigator.of(context).pushNamed(
+                  "/room_list_page",
+                  arguments: {
+                    "startDate": "${_selectedDateRange?.start.toString().split(' ')[0]}",
+                    "endDate": "${_selectedDateRange?.end.toString().split(' ')[0]}",
+                  },
+                );
+              },
+              child: Text("Search", style: TextStyle(fontSize: 18)),
+            ),
+          ],
+        ),
       ),
     );
   }
+
 }

@@ -4,6 +4,7 @@ import 'package:grandatma_mobile/common/date_converter.dart';
 import 'package:grandatma_mobile/presentation/bloc/customer/profile/profile_bloc.dart';
 import 'package:grandatma_mobile/presentation/pages/auth/signin_page.dart';
 import 'package:grandatma_mobile/presentation/pages/customer/profile/customer_edit_password_page.dart';
+import 'package:grandatma_mobile/presentation/pages/customer/transaction/transaction_cancel_page.dart';
 import 'package:grandatma_mobile/presentation/pages/customer/transaction/transaction_unpaid_page.dart';
 import 'package:grandatma_mobile/presentation/widgets/user_profile_card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -42,111 +43,130 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
         body: Container(
           color: Colors.white,
           padding: EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              BlocBuilder<ProfileBloc, ProfileState>(
-                builder: (context, state) {
-                  if (state is ProfileInitial || state is ProfileLoading) {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else if (state is ProfileSuccess) {
-                    return InkWell(
-                        child: UserProfileCard(
-                          profileImage:
-                              "https://pbs.twimg.com/media/F8fM17DaQAAb016?format=jpg&name=large",
-                          name: state.userDetail.nama,
-                          joinDate: DateConverter(state.userDetail.createdAt ?? DateTime.now())
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                BlocBuilder<ProfileBloc, ProfileState>(
+                  builder: (context, state) {
+                    if (state is ProfileInitial || state is ProfileLoading) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (state is ProfileSuccess) {
+                      return InkWell(
+                          child: UserProfileCard(
+                            profileImage:
+                                "https://pbs.twimg.com/media/F8fM17DaQAAb016?format=jpg&name=large",
+                            name: state.userDetail.nama,
+                            joinDate: DateConverter(state.userDetail.createdAt ?? DateTime.now())
+                          ),
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, '/customer_edit_profile_page',
+                                arguments: {
+                                  'name': state.userDetail.nama,
+                                  'email': state.userDetail.email,
+                                  'phone': state.userDetail.notelp,
+                                  'username': state.userDetail.username,
+                                });
+                          });
+                    } else if (state is ProfileError) {
+                      return Center(
+                        key: Key('error_message'),
+                        child: Text(state.message),
+                      );
+                    } else {
+                      return Center(
+                        child: Text("ERR"),
+                      );
+                    }
+                  },
+                ),
+                SizedBox(height: 30),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Text(
+                    'Transaction',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                ListTile(
+                  title: Text('Unpaid Transaction'),
+                  trailing: Icon(
+                    Icons.arrow_forward_ios,
+                    size: 15,
+                  ),
+                  onTap: () {
+                    Navigator.pushNamed(
+                        context, TransactionUnpaidPage.ROUTE_NAME);
+                  },
+                ),
+                Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Divider(
+                      height: 1,
+                      thickness: 1,
+                    )),
+                ListTile(
+                  title: Text('Cancel Transaction'),
+                  trailing: Icon(
+                    Icons.arrow_forward_ios,
+                    size: 15,
+                  ),
+                  onTap: () {
+                    Navigator.pushNamed(
+                        context, TransactionCancelPage.ROUTE_NAME);
+                  },
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Text(
+                    'My account',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                ListTile(
+                  title: Text('Change password'),
+                  trailing: Icon(
+                    Icons.arrow_forward_ios,
+                    size: 15,
+                  ),
+                  onTap: () {
+                    Navigator.pushNamed(
+                            context, CustomerEditPasswordPage.ROUTE_NAME);
+                  },
+                ),
+                Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Divider(
+                      height: 1,
+                      thickness: 1,
+                    )),
+                BlocBuilder<ProfileBloc, ProfileState>(
+                  builder: (context, state) {
+                    return ListTile(
+                        title: Text('Logout'),
+                        trailing: Icon(
+                          Icons.arrow_forward_ios,
+                          size: 15,
                         ),
-                        onTap: () {
-                          Navigator.pushNamed(
-                              context, '/customer_edit_profile_page',
-                              arguments: {
-                                'name': state.userDetail.nama,
-                                'email': state.userDetail.email,
-                                'phone': state.userDetail.notelp,
-                                'username': state.userDetail.username,
-                              });
+                        onTap: () async {
+                          SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
+                          await prefs.clear();
+                          navigatorKey.currentState?.pushReplacementNamed("/");
                         });
-                  } else if (state is ProfileError) {
-                    return Center(
-                      key: Key('error_message'),
-                      child: Text(state.message),
-                    );
-                  } else {
-                    return Center(
-                      child: Text("ERR"),
-                    );
-                  }
-                },
-              ),
-              SizedBox(height: 30),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Text(
-                  'Transaction',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  },
                 ),
-              ),
-              ListTile(
-                title: Text('Unpaid Transaction'),
-                trailing: Icon(
-                  Icons.arrow_forward_ios,
-                  size: 15,
-                ),
-                onTap: () {
-                  Navigator.pushNamed(
-                      context, TransactionUnpaidPage.ROUTE_NAME);
-                },
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Text(
-                  'My account',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-              ),
-              ListTile(
-                title: Text('Change password'),
-                trailing: Icon(
-                  Icons.arrow_forward_ios,
-                  size: 15,
-                ),
-                onTap: () {
-                  Navigator.pushNamed(
-                          context, CustomerEditPasswordPage.ROUTE_NAME);
-                },
-              ),
-              Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Divider(
-                    height: 1,
-                    thickness: 1,
-                  )),
-              BlocBuilder<ProfileBloc, ProfileState>(
-                builder: (context, state) {
-                  return ListTile(
-                      title: Text('Logout'),
-                      trailing: Icon(
-                        Icons.arrow_forward_ios,
-                        size: 15,
-                      ),
-                      onTap: () async {
-                        SharedPreferences prefs =
-                            await SharedPreferences.getInstance();
-                        await prefs.clear();
-                        navigatorKey.currentState?.pushReplacementNamed("/");
-                      });
-                },
-              ),
-              Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Divider(
-                    height: 1,
-                    thickness: 1,
-                  )),
-            ],
+                Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Divider(
+                      height: 1,
+                      thickness: 1,
+                    )),
+              ],
+            ),
           ),
         ));
   }

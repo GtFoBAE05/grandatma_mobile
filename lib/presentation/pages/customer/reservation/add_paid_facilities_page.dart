@@ -103,89 +103,102 @@ class _AddPaidFacilitiesPageState extends State<AddPaidFacilitiesPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: FormBuilder(
                   key: _formKey,
-                  child: Column(
-                    children: [
-                      DropdownButtonFormField<String>(
-                        hint: Text("Pilihan fasilitas"),
-                        value: paidFacilitiesId,
-                        items: paidFacilities.map((e) {
-                          return DropdownMenuItem<String>(
-                            value: e.id.toString(),
-                            child: Text(e.namaFasilitas.toString()),
-                          );
-                        }).toList(),
-                        validator: FormBuilderValidators.compose(
-                          [
-                            FormBuilderValidators.required(),
-                          ],
-                        ),
-                        onChanged: (value) {
-                          setState(() {
-                            paidFacilitiesId = value;
-                            paidFacilitiesName = paidFacilities
-                                .firstWhere((element) => element.id == int.parse(value!)).namaFasilitas;
-                          });
-                        },
+                  child: Center(
+                    child: Card(
+                      elevation: 5,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
                       ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      FormBuilderTextField(
-                        name: "jumlah_unit",
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          hintText: 'Jumlah Unit',
-                          label: Text("Jumlah Unit"),
-                          border: OutlineInputBorder(),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide:
-                            BorderSide(color: Colors.blue, width: 2.0),
-                          ),
-                        ),
-                        onChanged: (value) {
-                          setState(() {
-                            paidFacilitiesUnit = value;
-                          });
-                        },
-                        validator: FormBuilderValidators.compose(
-                          [
-                            FormBuilderValidators.required(),
-                            FormBuilderValidators.numeric(),
-                          ],
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          if (_formKey.currentState
-                              ?.saveAndValidate() ??
-                              false) {
-                            if (true) {
-                              argumentPaidFacilities?.add(ArgumentPaidFacilities(
-                                  paidFacilitiesName.toString(), int.parse(paidFacilitiesId),
-                                  int.parse(paidFacilitiesUnit)));
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            DropdownButtonFormField<String>(
+                              hint: Text("Pilihan fasilitas"),
+                              value: paidFacilitiesId,
+                              items: paidFacilities.map((e) {
+                                return DropdownMenuItem<String>(
+                                  value: e.id.toString(),
+                                  child: Text(e.namaFasilitas.toString()),
+                                );
+                              }).toList(),
+                              validator: FormBuilderValidators.compose(
+                                [
+                                  FormBuilderValidators.required(),
+                                ],
+                              ),
+                              onChanged: (value) {
+                                setState(() {
+                                  paidFacilitiesId = value;
+                                  paidFacilitiesName = paidFacilities
+                                      .firstWhere((element) => element.id == int.parse(value!)).namaFasilitas;
+                                });
+                              },
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            FormBuilderTextField(
+                              name: "jumlah_unit",
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                hintText: 'Jumlah Unit',
+                                label: Text("Jumlah Unit"),
+                                border: OutlineInputBorder(),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide:
+                                  BorderSide(color: Colors.blue, width: 2.0),
+                                ),
+                              ),
+                              onChanged: (value) {
+                                setState(() {
+                                  paidFacilitiesUnit = value;
+                                });
+                              },
+                              validator: FormBuilderValidators.compose(
+                                [
+                                  FormBuilderValidators.required(),
+                                  FormBuilderValidators.numeric(),
+                                ],
+                              ),
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                if (_formKey.currentState
+                                    ?.saveAndValidate() ??
+                                    false) {
+                                  if (true) {
+                                    argumentPaidFacilities?.add(ArgumentPaidFacilities(
+                                        paidFacilitiesName.toString(), int.parse(paidFacilitiesId),
+                                        int.parse(paidFacilitiesUnit)));
 
-                              print(argumentPaidFacilities);
-                              Navigator.pushReplacementNamed(
-                                  context,
-                                  PaidFacilitiesConfirmationPage.ROUTE_NAME,
-                                  arguments: {
-                                    'roomId': roomId,
-                                    'roomTypeName': roomType,
-                                    'startDate': startDate,
-                                    'endDate': endDate,
-                                    'jumlahDewasa': jumlahDewasa,
-                                    'jumlahAnak': jumlahAnak,
-                                    'nomorRekening': nomorRekening,
-                                    'pilihanKasur': pilihanKasur,
-                                    'price': price,
-                                    'paidFacilities': argumentPaidFacilities,
-                                  });
-                            }
-                          }
-                        },
-                        child: Text('Add Paid Facilities'),
+                                    print(argumentPaidFacilities);
+                                    Navigator.pushReplacementNamed(
+                                        context,
+                                        PaidFacilitiesConfirmationPage.ROUTE_NAME,
+                                        arguments: {
+                                          'roomId': roomId,
+                                          'roomTypeName': roomType,
+                                          'startDate': startDate,
+                                          'endDate': endDate,
+                                          'jumlahDewasa': jumlahDewasa,
+                                          'jumlahAnak': jumlahAnak,
+                                          'nomorRekening': nomorRekening,
+                                          'pilihanKasur': pilihanKasur,
+                                          'price': price,
+                                          'paidFacilities': argumentPaidFacilities,
+                                        });
+                                  }
+                                }
+                              },
+                              child: Text('Add Paid Facilities'),
+                            ),
+                          ],
+                        ),
                       ),
-                    ],
+                    ),
                   ),
                 ),
               );

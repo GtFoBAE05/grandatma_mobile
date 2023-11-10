@@ -17,6 +17,9 @@ String DateConverterWithoutTime(DateTime date){
 }
 
 Duration calculateDateDifference(String dateString1, String dateString2) {
+
+
+
     DateTime date1 = DateTime.parse(dateString1);
     DateTime date2 = DateTime.parse(dateString2);
 

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grandatma_mobile/presentation/bloc/customer/jaminan/get_jaminan/get_jaminan_bloc.dart';
 import 'package:grandatma_mobile/presentation/bloc/customer/jaminan/pay_jaminan/pay_jaminan_bloc.dart';
+import 'package:grandatma_mobile/presentation/pages/customer/reservation/order_receipt_page.dart';
+import 'package:grandatma_mobile/presentation/pages/customer/transaction/transaction_pay_jaminan_page.dart';
 
 class TransactionUnpaidPage extends StatefulWidget {
   static const ROUTE_NAME = "/customer_transaction_unpaid_page";
@@ -22,6 +24,8 @@ class _TransactionUnpaidPageState extends State<TransactionUnpaidPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    context.read<GetJaminanBloc>().add(GetJaminan());
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -87,37 +91,44 @@ class _TransactionUnpaidPageState extends State<TransactionUnpaidPage> {
                                     backgroundColor: Colors.red,
                                   ),
                                 );
+                                Navigator.of(context).pushNamed(OrderReceiptPage.ROUTE_NAME, arguments: {
+                                  'idReservation': jaminan.idReservasi,
+                                });
                                 return;
                               }
-                              showDialog(
-                                context: context,
-                                builder: (_) {
-                                  return AlertDialog(
-                                    title: const Text('Pay Reservation'),
-                                    content: const Text(
-                                        'Are you sure? The reservation amount will be the same as the total payment.'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: Navigator.of(context).pop,
-                                        child: const Text('Cancel'),
-                                      ),
-                                      TextButton(
-                                        onPressed: () {
-                                          context.read<PayJaminanBloc>().add(
-                                              DoPayJaminan(
-                                                  jaminan.idReservasi
-                                                      .toString(),
-                                                  jaminan.totalPembayaran!
-                                                      .toInt()));
-                                          Navigator.of(context).pop();
-                                          context.read<GetJaminanBloc>().add(GetJaminan());
-                                        },
-                                        child: const Text('Ok'),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
+                              Navigator.of(context).pushNamed(TransactionPayJaminanPage.ROUTE_NAME, arguments: {
+                                'idReservation': jaminan.idReservasi,
+                                'totalPayment': jaminan.totalPembayaran,
+                              });
+                              // showDialog(
+                              //   context: context,
+                              //   builder: (_) {
+                              //     return AlertDialog(
+                              //       title: const Text('Pay Reservation'),
+                              //       content: const Text(
+                              //           'Are you sure? The reservation amount will be the same as the total payment.'),
+                              //       actions: [
+                              //         TextButton(
+                              //           onPressed: Navigator.of(context).pop,
+                              //           child: const Text('Cancel'),
+                              //         ),
+                              //         TextButton(
+                              //           onPressed: () {
+                              //             context.read<PayJaminanBloc>().add(
+                              //                 DoPayJaminan(
+                              //                     jaminan.idReservasi
+                              //                         .toString(),
+                              //                     jaminan.totalPembayaran!
+                              //                         .toInt()));
+                              //             Navigator.of(context).pop();
+                              //             context.read<GetJaminanBloc>().add(GetJaminan());
+                              //           },
+                              //           child: const Text('Ok'),
+                              //         ),
+                              //       ],
+                              //     );
+                              //   },
+                              // );
                             }),
                       );
                     },

@@ -6,6 +6,7 @@ import 'package:grandatma_mobile/common/interceptors.dart';
 import 'package:grandatma_mobile/data/repositories/auth_repository_impl.dart';
 import 'package:grandatma_mobile/data/repositories/jaminan_repository_impl.dart';
 import 'package:grandatma_mobile/data/repositories/paid_repository_impl.dart';
+import 'package:grandatma_mobile/data/repositories/report_repository_impl.dart';
 import 'package:grandatma_mobile/data/repositories/reservation_repository_impl.dart';
 import 'package:grandatma_mobile/data/repositories/room_repository_impl.dart';
 import 'package:grandatma_mobile/data/repositories/transaction_repository_impl.dart';
@@ -13,12 +14,14 @@ import 'package:grandatma_mobile/data/repositories/user_repository_impl.dart';
 import 'package:grandatma_mobile/data/sources/remote/auth_remote_data_source.dart';
 import 'package:grandatma_mobile/data/sources/remote/jaminan_remote_data_source.dart';
 import 'package:grandatma_mobile/data/sources/remote/paid_facilities_remote_data_source.dart';
+import 'package:grandatma_mobile/data/sources/remote/report_remote_data_source.dart';
 import 'package:grandatma_mobile/data/sources/remote/reservation_remote_data_source.dart';
 import 'package:grandatma_mobile/data/sources/remote/room_remote_data_source.dart';
 import 'package:grandatma_mobile/data/sources/remote/transaction_remote_data_source.dart';
 import 'package:grandatma_mobile/data/sources/remote/user_remote_data_source.dart';
 import 'package:grandatma_mobile/domain/repositories/jaminan_respotory.dart';
 import 'package:grandatma_mobile/domain/repositories/paid_facilities_repository.dart';
+import 'package:grandatma_mobile/domain/repositories/report_repository.dart';
 import 'package:grandatma_mobile/domain/repositories/reservation_repository.dart';
 import 'package:grandatma_mobile/domain/repositories/room_repository.dart';
 import 'package:grandatma_mobile/domain/repositories/transaction_repository.dart';
@@ -40,6 +43,8 @@ import 'package:grandatma_mobile/presentation/bloc/customer/transaction/do_cance
 import 'package:grandatma_mobile/presentation/bloc/customer/transaction/get_transaction_can_cancel/get_transaction_can_cancel_bloc.dart';
 import 'package:grandatma_mobile/presentation/bloc/customer/transaction/history/transaction_history_bloc.dart';
 import 'package:grandatma_mobile/presentation/bloc/customer/transaction/search_transaction_can_cancel/search_transaction_can_cancel_bloc.dart';
+import 'package:grandatma_mobile/presentation/bloc/owner/report/new_customer/new_customer_bloc.dart';
+import 'package:grandatma_mobile/presentation/bloc/owner/report/top_customer/top_customer_bloc.dart';
 
 import 'domain/repositories/auth_repository.dart';
 
@@ -50,7 +55,7 @@ void initializeDependencies(){
   //dio //singleton
   final dio = Dio(
     BaseOptions(
-      baseUrl: 'http://192.168.18.14:8080/api/',
+      baseUrl: 'http://10.0.2.2:53472/api/',
     ),
   );
 
@@ -66,6 +71,7 @@ void initializeDependencies(){
   locator.registerLazySingleton<RoomRemoteDataSource>(() => RoomRemoteDataSourceImpl(dio: locator()));
   locator.registerLazySingleton<UserRemoteDataSource>(() => UserRemoteDataSourceImpl(dio: locator()));
   locator.registerLazySingleton<TransactionRemoteDataSource>(() => TransactionRemoteDataSourceImpl(dio: locator()));
+  locator.registerLazySingleton<ReportRemoteDataSource>(() => ReportRemoteDataSourceImpl(dio: locator()));
 
   //repository //singleton
   locator.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(authRemoteDataSource: locator()));
@@ -75,6 +81,7 @@ void initializeDependencies(){
   locator.registerLazySingleton<RoomRepository>(() => RoomRepositoryImpl(roomRemoteDataSource: locator()));
   locator.registerLazySingleton<UserRepository>(() => UserRepositoryImpl(userRemoteDataSource: locator()));
   locator.registerLazySingleton<TransactionRepository>(() => TransactionRepositoryImpl(transactionRemoteDataSource: locator()));
+  locator.registerLazySingleton<ReportRepository>(() => ReportRepositoryImpl(reportRemoteDataSource: locator()));
 
   //bloc //factory
   //auth
@@ -107,6 +114,10 @@ void initializeDependencies(){
   locator.registerFactory<GetTransactionCanCancelBloc>(() => GetTransactionCanCancelBloc(locator()));
   locator.registerFactory<TransactionHistoryBloc>(() => TransactionHistoryBloc(locator()));
   locator.registerFactory<SearchTransactionCanCancelBloc>(() => SearchTransactionCanCancelBloc(locator()));
+
+  //report
+  locator.registerFactory<NewCustomerBloc>(() => NewCustomerBloc(locator()));
+  locator.registerFactory<TopCustomerBloc>(() => TopCustomerBloc(locator()));
 
 
 }

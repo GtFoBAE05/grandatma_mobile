@@ -29,8 +29,8 @@ class _SigninPageState extends State<SigninPage> {
     super.initState();
     emailController.addListener(validateButton);
     passwordController.addListener(validateButton);
-    emailController.text = "andi@gmail.com";
-    passwordController.text = "andi";
+    emailController.text = "owner@gmail.com";
+    passwordController.text = "owner";
   }
 
   void validateButton() {

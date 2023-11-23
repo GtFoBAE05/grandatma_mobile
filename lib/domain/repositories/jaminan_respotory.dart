@@ -9,5 +9,5 @@ import '../../common/failure.dart';
 abstract class JaminanRepository{
   Future<Either<Failure,List<Jaminan>>> getJaminan();
 
-  Future<Either<Failure,PayJaminan>> doPayJaminan(String id, int nominal);
+  Future<Either<Failure,PayJaminan>> doPayJaminan(String id, int nominal, String rekening);
 }

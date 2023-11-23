@@ -8,7 +8,7 @@ import '../../../common/exception.dart';
 
 abstract class JaminanRemoteDataSource {
   Future<List<JaminanModel>> getJaminan();
-  Future<PayJaminanResponseModel> payJaminan(String id, int nominal);
+  Future<PayJaminanResponseModel> payJaminan(String id, int nominal, String rekening);
 }
 
 class JaminanRemoteDataSourceImpl implements JaminanRemoteDataSource {
@@ -30,9 +30,10 @@ class JaminanRemoteDataSourceImpl implements JaminanRemoteDataSource {
   }
 
   @override
-  Future<PayJaminanResponseModel> payJaminan(String id, int nominal) async {
-    final response = await dio.put("jaminan/$id", data: {
-      "nominal": nominal
+  Future<PayJaminanResponseModel> payJaminan(String id, int nominal, String rekening) async {
+    final response = await dio.put("jaminanwithrek/$id", data: {
+      "nominal": nominal,
+      "rekening" : rekening
     });
 
     if (response.statusCode == 200) {

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:grandatma_mobile/presentation/pages/owner/home/owner_home_page.dart';
 import 'package:grandatma_mobile/presentation/pages/owner/profile/owner_profile_page.dart';
+import 'package:grandatma_mobile/presentation/pages/owner/report/owner_report_main_page.dart';
 
 import '../auth/signin_page.dart';
 
@@ -30,9 +31,10 @@ class _OwnerMainPageState extends State<OwnerMainPage> {
       case 0:
         return OwnerHomePage();
       case 1:
+        return OwnerReportMainPage();
+      case 2:
         return OwnerProfilePage();
       default:
-
         return SigninPage();
     }
   }
@@ -49,6 +51,10 @@ class _OwnerMainPageState extends State<OwnerMainPage> {
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
           label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.list),
+          label: 'Report',
         ),
         BottomNavigationBarItem(
             icon: Icon(Icons.person), label: 'Profile'),

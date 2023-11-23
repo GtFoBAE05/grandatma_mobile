@@ -17,9 +17,9 @@ class JaminanRepositoryImpl implements JaminanRepository{
   JaminanRepositoryImpl({required this.jaminanRemoteDataSource});
 
   @override
-  Future<Either<Failure, PayJaminan>> doPayJaminan(String id, int nominal) async {
+  Future<Either<Failure, PayJaminan>> doPayJaminan(String id, int nominal, String rekening) async {
     try{
-      final result = await jaminanRemoteDataSource.payJaminan(id, nominal);
+      final result = await jaminanRemoteDataSource.payJaminan(id, nominal, rekening);
 
       if(result.error){
         print(result);

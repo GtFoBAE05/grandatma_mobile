@@ -129,25 +129,25 @@ class _AddReservationPageState extends State<AddReservationPage> {
                 ),
               ),
               SizedBox(height: 20),
-              FormBuilderTextField(
-                name: "nomor_rekening",
-                controller: nomorRekeningController,
-                decoration: InputDecoration(
-                  hintText: 'Nomor Rekening',
-                  label: Text('Nomor Rekening'),
-                  border: OutlineInputBorder(),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blue, width: 2.0),
-                  ),
-                ),
-                validator: FormBuilderValidators.compose(
-                  [
-                    FormBuilderValidators.required(),
-                    FormBuilderValidators.numeric(),
-                  ],
-                ),
-              ),
-              SizedBox(height: 20),
+              // FormBuilderTextField(
+              //   name: "nomor_rekening",
+              //   controller: nomorRekeningController,
+              //   decoration: InputDecoration(
+              //     hintText: 'Nomor Rekening',
+              //     label: Text('Nomor Rekening'),
+              //     border: OutlineInputBorder(),
+              //     focusedBorder: OutlineInputBorder(
+              //       borderSide: BorderSide(color: Colors.blue, width: 2.0),
+              //     ),
+              //   ),
+              //   validator: FormBuilderValidators.compose(
+              //     [
+              //       FormBuilderValidators.required(),
+              //       FormBuilderValidators.numeric(),
+              //     ],
+              //   ),
+              // ),
+              // SizedBox(height: 20),
               DropdownButtonFormField<String>(
                 hint: Text("Pilihan Kasur"),
                 value: pilihanKasur,
@@ -180,7 +180,7 @@ class _AddReservationPageState extends State<AddReservationPage> {
                         "endDate": endDate,
                         "jumlahDewasa": int.parse(jumlahDewasa.text),
                         "jumlahAnak": int.parse(jumlahAnak.text),
-                        "nomorRekening": nomorRekeningController.text,
+                        "nomorRekening": "",
                         "pilihanKasur": pilihanKasur,
                         "price": int.parse(price.toString())
                       });
@@ -206,8 +206,9 @@ class ArgumentPaidFacilities {
   late String name;
   late int id;
   late int unitCount;
+  late int price;
 
-  ArgumentPaidFacilities(this.name, this.id, this.unitCount);
+  ArgumentPaidFacilities(this.name, this.id, this.unitCount, this.price);
 }
 // Widget buildFasilitasTambahanField(int index) {
 //   var value = paidFacilities.first.id;

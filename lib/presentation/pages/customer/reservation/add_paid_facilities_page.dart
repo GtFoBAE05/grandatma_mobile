@@ -36,6 +36,7 @@ class _AddPaidFacilitiesPageState extends State<AddPaidFacilitiesPage> {
   var paidFacilitiesId;
   var paidFacilitiesName;
   var paidFacilitiesUnit;
+  var paidFacilitiesPrice;
 
 
   @override
@@ -71,6 +72,8 @@ class _AddPaidFacilitiesPageState extends State<AddPaidFacilitiesPage> {
       print("name: ${element.name}");
       print("unitCount: ${element.unitCount}");
     });
+
+
   }
 
   @override
@@ -134,6 +137,8 @@ class _AddPaidFacilitiesPageState extends State<AddPaidFacilitiesPage> {
                                   paidFacilitiesId = value;
                                   paidFacilitiesName = paidFacilities
                                       .firstWhere((element) => element.id == int.parse(value!)).namaFasilitas;
+                                  paidFacilitiesPrice = paidFacilities
+                                      .firstWhere((element) => element.id == int.parse(value!)).harga;
                                 });
                               },
                             ),
@@ -170,9 +175,10 @@ class _AddPaidFacilitiesPageState extends State<AddPaidFacilitiesPage> {
                                     ?.saveAndValidate() ??
                                     false) {
                                   if (true) {
+
                                     argumentPaidFacilities?.add(ArgumentPaidFacilities(
                                         paidFacilitiesName.toString(), int.parse(paidFacilitiesId),
-                                        int.parse(paidFacilitiesUnit)));
+                                        int.parse(paidFacilitiesUnit), paidFacilitiesPrice));
 
                                     print(argumentPaidFacilities);
                                     Navigator.pushReplacementNamed(

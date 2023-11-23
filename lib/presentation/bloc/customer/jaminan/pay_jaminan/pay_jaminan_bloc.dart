@@ -15,7 +15,7 @@ class PayJaminanBloc extends Bloc<PayJaminanEvent, PayJaminanState> {
   PayJaminanBloc(this._jaminanRepository) : super(PayJaminanInitial()) {
     on<DoPayJaminan>((event, emit) async {
       emit(PayJaminanLoading());
-      final result = await _jaminanRepository.doPayJaminan(event.id, event.nominal);
+      final result = await _jaminanRepository.doPayJaminan(event.id, event.nominal, event.nomorRekening);
 
       result.fold(
         (l) => emit(PayJaminanError(message: l.message)),

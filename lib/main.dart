@@ -19,6 +19,8 @@ import 'package:grandatma_mobile/presentation/bloc/customer/transaction/do_cance
 import 'package:grandatma_mobile/presentation/bloc/customer/transaction/get_transaction_can_cancel/get_transaction_can_cancel_bloc.dart';
 import 'package:grandatma_mobile/presentation/bloc/customer/transaction/history/transaction_history_bloc.dart';
 import 'package:grandatma_mobile/presentation/bloc/customer/transaction/search_transaction_can_cancel/search_transaction_can_cancel_bloc.dart';
+import 'package:grandatma_mobile/presentation/bloc/owner/report/new_customer/new_customer_bloc.dart';
+import 'package:grandatma_mobile/presentation/bloc/owner/report/top_customer/top_customer_bloc.dart';
 import 'package:grandatma_mobile/presentation/pages/auth/hotel_information_page.dart';
 import 'package:grandatma_mobile/presentation/pages/auth/signin_page.dart';
 import 'package:grandatma_mobile/presentation/pages/auth/signup_page.dart';
@@ -39,6 +41,7 @@ import 'package:grandatma_mobile/presentation/pages/customer/room/room_list_page
 import 'package:grandatma_mobile/presentation/pages/customer/transaction/transaction_cancel_page.dart';
 import 'package:grandatma_mobile/presentation/pages/customer/transaction/transaction_detail_page.dart';
 import 'package:grandatma_mobile/presentation/pages/customer/transaction/transaction_history_page.dart';
+import 'package:grandatma_mobile/presentation/pages/customer/transaction/transaction_pay_jaminan_page.dart';
 import 'package:grandatma_mobile/presentation/pages/customer/transaction/transaction_unpaid_page.dart';
 import 'package:grandatma_mobile/presentation/pages/gm/gm_main_page.dart';
 import 'package:grandatma_mobile/presentation/pages/gm/home/gm_home_page.dart';
@@ -48,7 +51,14 @@ import 'package:grandatma_mobile/presentation/pages/owner/home/owner_home_page.d
 import 'package:grandatma_mobile/presentation/pages/owner/owner_main_page.dart';
 import 'package:grandatma_mobile/presentation/pages/owner/profile/owner_edit_password_page.dart';
 import 'package:grandatma_mobile/presentation/pages/owner/profile/owner_profile_page.dart';
+import 'package:grandatma_mobile/presentation/pages/owner/report/new_customer/owner_new_customer_main_page.dart';
+import 'package:grandatma_mobile/presentation/pages/owner/report/new_customer/owner_new_customer_pdf_preview_page.dart';
+import 'package:grandatma_mobile/presentation/pages/owner/report/owner_report_main_page.dart';
+import 'package:grandatma_mobile/presentation/pages/owner/report/top_customer/owner_top_customer_page.dart';
+import 'package:grandatma_mobile/presentation/pages/owner/report/top_customer/owner_top_customer_pdf_preview_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 import 'injection.dart' as di;
 
@@ -56,8 +66,8 @@ GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   di.initializeDependencies();
+  await initializeDateFormatting('id_ID', null);
   runApp(MyApp());
-
 }
 
 class MyApp extends StatelessWidget {
@@ -149,6 +159,13 @@ class MyApp extends StatelessWidget {
             create: (context) => di.locator<SearchTransactionCanCancelBloc>(),
           ),
 
+          //report
+          BlocProvider<TopCustomerBloc>(
+            create: (context) => di.locator<TopCustomerBloc>(),
+          ),
+          BlocProvider<NewCustomerBloc>(
+            create: (context) => di.locator<NewCustomerBloc>(),
+          ),
         ],
         child: FutureBuilder<Widget>(
           future: getInitialPage(),
@@ -196,7 +213,7 @@ class MyApp extends StatelessWidget {
                       return MaterialPageRoute(
                           builder: (context) => CustomerHomePage());
 
-                      //room
+                    //room
                     case '/check_avail_room_page':
                       return MaterialPageRoute(
                           builder: (context) => CheckAvailRoomPage());
@@ -209,7 +226,7 @@ class MyApp extends StatelessWidget {
                           builder: (context) => RoomDetailPage(),
                           settings: settings);
 
-                      //reservation
+                    //reservation
                     case '/add_reservation_page':
                       return MaterialPageRoute(
                           builder: (context) => AddReservationPage(),
@@ -224,7 +241,8 @@ class MyApp extends StatelessWidget {
                           settings: settings);
                     case '/paid_facilities_confirmation_page':
                       return MaterialPageRoute(
-                          builder: (context) => PaidFacilitiesConfirmationPage(),
+                          builder: (context) =>
+                              PaidFacilitiesConfirmationPage(),
                           settings: settings);
                     case '/checkout_confirmation_page':
                       return MaterialPageRoute(
@@ -236,7 +254,7 @@ class MyApp extends StatelessWidget {
                           builder: (context) => OrderReceiptPage(),
                           settings: settings);
 
-                      //profile
+                    //profile
                     case '/customer_profile_page':
                       return MaterialPageRoute(
                           builder: (context) => CustomerProfilePage());
@@ -250,23 +268,28 @@ class MyApp extends StatelessWidget {
                             settings: settings);
                       }
 
-                      //transaction
+                    //transaction
                     case '/customer_transaction_history_page':
                       return MaterialPageRoute(
                           builder: (context) =>
                               CustomerTransactionHistoryPage());
                     case '/customer_transaction_detail_page':
                       return MaterialPageRoute(
-                          builder: (context) =>
-                              CustomerTransactionDetailPage(), settings: settings);
+                          builder: (context) => CustomerTransactionDetailPage(),
+                          settings: settings);
                     case '/customer_transaction_unpaid_page':
                       return MaterialPageRoute(
-                          builder: (context) =>
-                              TransactionUnpaidPage(), settings: settings);
+                          builder: (context) => TransactionUnpaidPage(),
+                          settings: settings);
                     case '/customer_transaction_cancel_page':
                       return MaterialPageRoute(
-                          builder: (context) =>
-                              TransactionCancelPage(), settings: settings);
+                          builder: (context) => TransactionCancelPage(),
+                          settings: settings);
+
+                    case "/customer_transaction_pay_jaminan_page":
+                      return MaterialPageRoute(
+                          builder: (context) => TransactionPayJaminanPage(),
+                          settings: settings);
 
                     //owner
                     case '/owner_main_page':
@@ -281,6 +304,24 @@ class MyApp extends StatelessWidget {
                     case '/owner_edit_password_page':
                       return MaterialPageRoute(
                           builder: (context) => OwnerEditPasswordPage());
+                    case '/report_main_page':
+                      return MaterialPageRoute(
+                          builder: (context) => OwnerReportMainPage());
+                    case '/owner_new_customer_report_main_page':
+                      return MaterialPageRoute(
+                          builder: (context) =>
+                              OwnerNewCustomerReportMainPage());
+                    case '/owner_top_customer_page':
+                      return MaterialPageRoute(
+                          builder: (context) => OwnerTopCustomerPage());
+                    case '/owner_new_customer_pdf_preview_page':
+                      return MaterialPageRoute(
+                          builder: (context) => OwnerNewCustomerPdfPreviewPage(),
+                          settings: settings);
+                    case '/owner_top_customer_pdf_preview_page':
+                      return MaterialPageRoute(
+                          builder: (context) => OwnerTopCustomerPdfPreviewPage(),
+                          settings: settings);
 
                     //gm
                     case '/gm_main_page':

@@ -34,6 +34,7 @@ class AuthRepositoryImpl implements AuthRepository{
     } on SocketException {
       return Left(ConnectionFailure('Failed to connect to the network'));
     }on DioException catch (e) {
+      print(e);
       return Left(ServerFailure(e.response!.data['pesan']));
     }
   }

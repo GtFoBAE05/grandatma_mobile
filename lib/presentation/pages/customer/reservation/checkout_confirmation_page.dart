@@ -26,6 +26,8 @@ class _CheckoutConfirmationPageState extends State<CheckoutConfirmationPage> {
   String? nomorRekening;
   String? pilihanKasur;
   int? price;
+  int facilityPrice=0;
+  int totalPrice = 0;
   List<ArgumentPaidFacilities> facilities = [];
 
   @override
@@ -49,6 +51,9 @@ class _CheckoutConfirmationPageState extends State<CheckoutConfirmationPage> {
       print("id: ${element.id}");
       print("name: ${element.name}");
       print("unitCount: ${element.unitCount}");
+      print("price: ${element.price}");
+
+      facilityPrice = facilityPrice + (element.unitCount * element.price);
     });
     print("---------------");
     print(roomId);
@@ -61,6 +66,8 @@ class _CheckoutConfirmationPageState extends State<CheckoutConfirmationPage> {
     print(nomorRekening);
     print(pilihanKasur);
     print(price);
+    price = price! * calculateDateDifference(startDate.toString(), endDate.toString()).inDays;
+    totalPrice = price! + facilityPrice;
   }
 
   @override
@@ -151,7 +158,7 @@ class _CheckoutConfirmationPageState extends State<CheckoutConfirmationPage> {
                         // ),
                         // SizedBox(height: 20),
                         Text(
-                          'Total Pembayaran: Rp${price! * calculateDateDifference(startDate.toString(), endDate.toString()).inDays}',
+                          'Total Pembayaran: Rp${totalPrice}',
                           style: TextStyle(fontSize: 16),
                         ),
                         SizedBox(height: 20),
@@ -165,11 +172,11 @@ class _CheckoutConfirmationPageState extends State<CheckoutConfirmationPage> {
                           style: TextStyle(fontSize: 16),
                         ),
                         SizedBox(height: 20),
-                        Text(
-                          'Nomor Rekening: $nomorRekening',
-                          style: TextStyle(fontSize: 16),
-                        ),
-                        SizedBox(height: 20),
+                        // Text(
+                        //   'Nomor Rekening: $nomorRekening',
+                        //   style: TextStyle(fontSize: 16),
+                        // ),
+                        // SizedBox(height: 20),
                         Text(
                           'Kamar yang Dipesan: $roomType',
                           style: TextStyle(fontSize: 16),
